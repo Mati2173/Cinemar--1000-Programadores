@@ -1,3 +1,5 @@
-Este es el README.md
+# **Sistema de Gestion - Cinemar**
 
-Prueba inicial para proyecto 'Cinemar' (Proyecto de 1000 Programadores)
+Colaboradores:
+    . Cardozo, Macarena Soledad
+    . Gómez, Matías Agustín

@@ -10,7 +10,7 @@
 
 4. Se va a abrir la consola de Windows en dicha carpeta. Escribir en ella el siguiente comando:
 ```
-   git clone https://github.com/Mati2173/Cinemar--1000-Programadores.git
+git clone https://github.com/Mati2173/Cinemar--1000-Programadores.git
 ```
 > Este comando copia todos los archivos del respositorio de GitHub en la carpeta seleccionada.
 
@@ -28,17 +28,17 @@
 
 4. Una vez realizados los cambios, hay que subirlos a GitHub con los siguientes comandos (en el mismo orden):
 ```
-   git add .
+git add .
 ```
 > Este comando agrega **todos** los nuevos archivos o los cambios hechos en los mismos.
 
  ```
-   git commit -m "Mensaje"
+git commit -m "Mensaje"
  ```
 > En "Mensaje" detallá el cambio que hiciste en pocas palabras. Este comando confirma los cambios.
 
 ```
-   git push
+git push
 ```
 > Este comando sube todos los cambios a GitHub.
 
@@ -53,8 +53,25 @@
 
 3. Escribir el siguiente comando:
 ```
-   git pull
+git pull
 ```
 > Este comando actualiza el repositorio local con los cambios realizados por otro usuario.
 
 4. El respositorio actualizado con los últimos cambios ya está en tu computadora. Ya podés seguir trabajando con el proyecto. Luego de realizar los cambios necesarios, subilos a GitHub siguiendo las instrucciones detalladas en **"Pasos para subir los cambios en GitHub"**.
+
+- - - - - -
+### Pasos para eliminar el ultimo commit
+
+1. Abrir la carpeta donde se encuentran todos los archivos del proyecto con VSC.
+
+2. Abrir una nueva terminal en dicha carpeta.
+
+3. Escribir los siguientes comandos:
+```
+git reset --hard HEAD^
+```
+
+```
+git push origin -f
+```
+> Este comando elimina el ultimo commit realizado, tanto en GitHub como en tu PC.
