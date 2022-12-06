@@ -58,4 +58,5 @@ cm.create_table("descuentos",
                 "id_descuento INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "dia TEXT(10),"+
                 "porcentaje INTEGER(3) DEFAULT 0")
+                
 cm.close()
