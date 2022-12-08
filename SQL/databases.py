@@ -17,7 +17,7 @@ class DataBase:
     
     def select(self, table_name, columns, condition):
         self.cursor.execute(f"SELECT {columns} FROM {table_name} WHERE {condition}")
-        return self.cursor.fetchall()
+        return self.cursor.fetchone()
     
     def select_all(self, table_name, columns):
         self.cursor.execute(f"SELECT {columns} FROM {table_name}")
@@ -26,6 +26,10 @@ class DataBase:
     def update(self, table_name, column, value, condition):
         self.cursor.execute(f"UPDATE {table_name} SET {column} = {value} WHERE {condition}")
         self.connection.commit()
+    
+    def count(self, table_name, column, condition):
+        self.cursor.execute(f'SELECT COUNT ({column}) FROM {table_name} WHERE {condition}')
+        return self.cursor.fetchone()[0]
     
     def delete(self, table_name, condition):
         self.cursor.execute(f"DELETE FROM {table_name} WHERE {condition}")
