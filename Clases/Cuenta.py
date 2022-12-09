@@ -3,56 +3,55 @@ from Clases.Persona import Persona
 import csv
 
 class Cuenta(Persona):
-    def __init__(self, apellido = '', nombre = '', dni = '', email = '', telefono = 0, id = None, usuario = '', password = '', admin = 1):
+    def __init__(self, id = None, apellido = '', nombre = '', dni = '', email = '', telefono = 0,  usuario = '', password = '', admin = 1):
         Persona.__init__(self, apellido, nombre, dni, email, telefono, id)
         self.usuario = usuario
         self.password = password
         self.admin = admin
     
-    def usuario_setter(self, bdd):
-        usuario = input('\nNombre de usuario: ')
+    def usuario_setter(self, bdd, usuario):
         if bdd.count('cuentas', 'usuario', f'usuario = "{usuario}"') == 1:
-            print('\nNombre de usuario ya existente!')
-            self.usuario_setter(bdd)
+            return '\nNombre de usuario ya existente!'
         else:
             self.usuario = usuario
+            return ''
     
-    def password_setter(self):
-        self.password = input('\nContraseña: ')
+    def password_setter(self, passw):
+        self.password = passw
 
     def cargar_cuenta(self, bdd):
         Persona.cargar_persona(self, bdd)
-        bdd.insert('cuentas',
-                'usuario, password, admin',
-                f'"{self.usuario}", "{self.password}", {self.admin}')
+        bdd.insert('cuentas', 'usuario, password, admin', f'"{self.usuario}", "{self.password}", {self.admin}')
     
-    def registrarse(self, bdd):
-        Persona.crear_persona(self, bdd)
-        self.usuario_setter(bdd)
-        self.password_setter()
+    def registrarse(self, bdd, apellido, nombre, dni, email, telefono, usuario, passw):
+        mensaje = ''
+        mensaje += Persona.crear_persona(self, bdd, apellido, nombre, dni, email, telefono)
+        mensaje += self.usuario_setter(bdd, usuario)
+        self.password_setter(passw)
 
-        self.cargar_cuenta(bdd)
-        print('\nCuenta Registrada Exitosamente!')
+        if len(mensaje) == 0:
+            self.cargar_cuenta(bdd)
+            return 'Cuenta Registrada Exitosamente!'
+        else:
+            return 'Registro Fallido.' + mensaje
     
     def iniciar_sesion(self, bdd, username, password):
         user = bdd.select('cuentas', 'id_cuenta, usuario, password, admin', f'usuario = "{username}"')
         if user != None:
             if user[2] == password:
-                per = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"')
-                Cuenta.__init__(self,per[1], per[2], per[3], per[4], per[5], user[0], user[1], user[2], user[3])
-                print('\nInicio de Sesión Exitoso!')
-                return True
+                #cuenta = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"') + user
+                #Cuenta.__init__(self, cuenta[0], cuenta[1], cuenta[2], cuenta[3], cuenta[4], cuenta[5], cuenta[7], cuenta[8], cuenta[9])
+                return 'Inicio de Sesión Exitoso!'
             else:
-                print('\nContraseña incorrecta!')
+                return 'Contraseña incorrecta!'
         else:
-            print('\nEl usuario ingresado no existe!')
-        return False
+            return 'El usuario ingresado no existe!'
     
-    def cerrar_sesion(self):
-        Cuenta.__init__(self)
-        print('\nSesión Cerrada Exitosamente!')
+    #def cerrar_sesion(self):
+        #Cuenta.__init__(self)
+        #print('\nSesión Cerrada Exitosamente!')
     
-    def all_usuarios(self, bdd):
+    def all_cuentas(self, bdd):
         lista = []
         cuentas = bdd.select_all('cuentas', 'usuario, password')
         personas = bdd.select_all('personas', 'id_persona, apellido, nombre, dni, email, telefono')
@@ -63,7 +62,7 @@ class Cuenta(Persona):
         
         return lista
 
-    def csv_all_usuarios(self, bdd):     
+    def csv_all_cuentas(self, bdd):     
         with open('Cuentas.csv', 'w', newline = '\n') as fichero:
             writer = csv.writer(fichero, delimiter = ',')
 
@@ -73,22 +72,22 @@ class Cuenta(Persona):
             for cuenta in texto:
                 writer.writerow(cuenta)
 
-    def eliminar(self, bdd, id_cuenta):
+    def eliminar_cuenta(self, bdd, id_cuenta):
+        Persona.eliminar(self, bdd, id_cuenta)
         bdd.delete('cuentas', f'id_cuenta = {id_cuenta}')
-        bdd.delete('personas', f'id_persona = {id_cuenta}')
        
-    def modificar(self, bdd, id_cuenta, **datos):
+    def modificar_cuenta(self, bdd, id_cuenta, **datos):
         for clave, valor in datos.items():
             if clave == 'apellido':
-                bdd.update('personas', 'apellido', f'"{valor}"', f'id_cuenta = {id_cuenta}')
+                Persona.modificar_persona(self, bdd, id_cuenta, apellido = valor)
             elif clave == 'nombre':
-                bdd.update('personas', 'nombre', f'"{valor}"', f'id_cuenta = {id_cuenta}')
+                Persona.modificar_persona(self, bdd, id_cuenta, nombre = valor)
             elif clave == 'dni':
-                bdd.update('personas', 'dni', f'"{valor}"', f'id_cuenta = {id_cuenta}')
+                Persona.modificar_persona(self, bdd, id_cuenta, dni = valor)
             elif clave == 'email':
-                bdd.update('personas', 'email', f'"{valor}"', f'id_cuenta = {id_cuenta}')
+                Persona.modificar_persona(self, bdd, id_cuenta, email = valor)
             elif clave == 'telefono':
-                bdd.update('personas', 'telefono', f'"{valor}"', f'id_cuenta = {id_cuenta}')
+                Persona.modificar_persona(self, bdd, id_cuenta, telefono = valor)
             elif clave == 'usuario':
                 bdd.update('cuentas', 'usuario', f'"{valor}"', f'id_cuenta = {id_cuenta}')
             elif clave == 'password':
@@ -104,13 +103,3 @@ class Cuenta(Persona):
         cuenta += Persona.__str__(self)
         cuenta += f'\nNombre de usuario: {self.usuario}\tContraseña: {self.password}'
         return cuenta
-
-
-# Path: Sql\main.py
-if __name__ == '__main__':
-    bdd = db.DataBase('cinemar.db')
-    usuario = Cuenta()
-
-    usuario.registrarse(bdd)
-
-    bdd.close()
