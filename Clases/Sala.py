@@ -1,6 +1,4 @@
 from SQL import databases as db
-from Clases.Sala import salas
-import csv
 
 class Sala:
     def __init__ (self,id,cantidaddebutacas,tipo,funciones):
@@ -41,6 +39,10 @@ class Sala:
     @funciones.setter
     def funciones(self,funciones):
         self.funciones = funciones
+        
+    def __str__(self):
+        return f"{self.cantidaddebutacas} {self.tipo} {self.funciones}"
+    
         
     def mostrar_lista(self):
         return [self.id, self.cantidaddebutacas, self.tipo, self.funciones]
