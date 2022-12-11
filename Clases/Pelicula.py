@@ -2,7 +2,7 @@ from SQL import databases as db
 from Clases.Pelicula import peliculas
 import csv
 
-class Pelicula:
+class Pelicula(peliculas):
     def __init__ (self,id,nombre,duracion,genero,tipo,director,actores,sinopsis):
         self.id = id
         self.nombre = nombre
@@ -102,7 +102,7 @@ class Pelicula:
         sinopsis =  input()
       
 
-    def agregarDbPelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
+    def agregarBdPelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
         connection = conn
         with connection.cursor() as cursor:
              consulta = "INSERT INTO peliculas (nombre, duracion, genero, tipo, director,actores,sinopsis) VALUES (%s, %s, %s, %s, %s, %s,%s);"
@@ -111,7 +111,7 @@ class Pelicula:
              connection.close()
         print("Pelicula Agregada")
         
-    def eliminarDbpelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
+    def eliminarBdpelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
         connection = conn
         with connection.cursor() as cursor:
              consulta = "DELETE FROM Peliculas WHERE(id)"
