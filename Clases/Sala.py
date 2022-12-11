@@ -1,39 +1,47 @@
+from SQL import databases as db
+from Clases.Sala import salas
+import csv
+
 class Sala:
     def __init__ (self,id,cantidaddebutacas,tipo,funciones):
-        self.__id = id
-        self.__cantidaddebutacas = cantidaddebutacas
-        self.__tipo = tipo
-        self.__funciones = funciones
+        self.id = id
+        self.cantidaddebutacas = cantidaddebutacas
+        self.tipo = tipo
+        self.funciones = funciones
         
     @property
     def id (self):
-        return self.__id
+        return self.id
 
     @id.setter
     def id(self,id):
-        self.__id = id
+        self.id = id
 
     @property
     def cantidaddebutacas (self):
-        return self.__cantidaddebutacas
+        return self.cantidaddebutacas
 
     @cantidaddebutacas.setter
     def cantidaddebutacas(self,cantidaddebutacas):
-        self.__cantidaddebutacas = cantidaddebutacas
+        self.cantidaddebutacas = cantidaddebutacas
 
 
     @property
     def tipo (self):
-        return self.__tipo
+        return self.tipo
 
     @tipo.setter
     def tipo(self,tipo):
-        self.__tipo = tipo
+        self.tipo = tipo
         
     @property
     def funciones (self):
-        return self.__funciones
+        return self.funciones
 
     @funciones.setter
     def funciones(self,funciones):
-        self.__funciones = funciones
+        self.funciones = funciones
+        
+    def mostrar_lista(self):
+        return [self.id, self.cantidaddebutacas, self.tipo, self.funciones]
+    

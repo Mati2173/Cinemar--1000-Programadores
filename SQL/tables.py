@@ -1,7 +1,7 @@
 import databases as db
 
 cm = db.DataBase("cinemar.db")
-
+'''''
 cm.create_table("personas",
                 "id_persona INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "apellido TEXT(20),"+
@@ -58,5 +58,14 @@ cm.create_table("descuentos",
                 "id_descuento INTEGER PRIMARY KEY AUTOINCREMENT,"+  #ID del día
                 "dia TEXT(10),"+    #Lunes, Martes, ...
                 "porcentaje INTEGER(3) DEFAULT 0")  
+'''
+cm.insert("descuentos","dia,porcentaje","'Lunes','20'")
+cm.insert("descuentos","dia,porcentaje","'Martes','15'")
+cm.insert("descuentos","dia,porcentaje","'Miercoles','20'")
+cm.insert("descuentos","dia,porcentaje","'Jueves','15'")
+cm.insert("descuentos","dia,porcentaje","'Viernes','20'")
+cm.insert("descuentos","dia,porcentaje","'Sabado','20'")
+cm.insert("descuentos","dia,porcentaje","'Domingo','10'")
+
 
 cm.close()
