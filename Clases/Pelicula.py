@@ -1,8 +1,6 @@
-from SQL import databases as db
-from Clases.Pelicula import peliculas
-import csv
+from sqlite3 import databases as db
 
-class Pelicula(peliculas):
+class Pelicula():
     def __init__ (self,id,nombre,duracion,genero,tipo,director,actores,sinopsis):
         self.id = id
         self.nombre = nombre
@@ -14,7 +12,7 @@ class Pelicula(peliculas):
         self.sinopsis = sinopsis
         
     @property
-    def id (self):
+    def id(self):
         return self.id
 
     @id.setter
@@ -22,7 +20,7 @@ class Pelicula(peliculas):
         self.id = id
 
     @property
-    def nombre (self):
+    def nombre(self):
         return self.nombre
 
     @nombre.setter
@@ -31,7 +29,7 @@ class Pelicula(peliculas):
 
 
     @property
-    def duracion (self):
+    def duracion(self):
         return self.duracion
 
     @duracion.setter
@@ -39,7 +37,7 @@ class Pelicula(peliculas):
         self.duracion = duracion
         
     @property
-    def genero (self):
+    def genero(self):
         return self.genero
 
     @genero.setter
@@ -47,7 +45,7 @@ class Pelicula(peliculas):
         self.genero = genero
         
     @property
-    def tipo (self):
+    def tipo(self):
         return self.tipo
 
     @tipo.setter
@@ -55,7 +53,7 @@ class Pelicula(peliculas):
         self.tipo = tipo
         
     @property
-    def director (self):
+    def director(self):
         return self.director
 
     @director.setter
@@ -63,7 +61,7 @@ class Pelicula(peliculas):
         self.director = director
         
     @property
-    def actores (self):
+    def actores(self):
         return self.actores
 
     @actores.setter
@@ -79,7 +77,7 @@ class Pelicula(peliculas):
         self.sinopsis = sinopsis
 
     def __str__(self):
-        return f"{self.nombre} {self.duracion} {self.genero} {self.tipo} {self.director} {self.actores} {self.sinopsis}"
+        return f"{self.id} {self.nombre} {self.duracion} {self.genero} {self.tipo} {self.director} {self.actores} {self.sinopsis}"
     
     def agregar_pelicula():
         print("Ingrese el nombre de la Pelicula: ")
@@ -102,7 +100,7 @@ class Pelicula(peliculas):
         sinopsis =  input()
       
 
-    def agregarBdPelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
+    def agregarDbPelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
         connection = conn
         with connection.cursor() as cursor:
              consulta = "INSERT INTO peliculas (nombre, duracion, genero, tipo, director,actores,sinopsis) VALUES (%s, %s, %s, %s, %s, %s,%s);"
@@ -111,7 +109,7 @@ class Pelicula(peliculas):
              connection.close()
         print("Pelicula Agregada")
         
-    def eliminarBdpelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
+    def eliminarDbpelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
         connection = conn
         with connection.cursor() as cursor:
              consulta = "DELETE FROM Peliculas WHERE(id)"
