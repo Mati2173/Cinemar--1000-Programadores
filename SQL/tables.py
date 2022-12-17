@@ -46,14 +46,14 @@ cm.create_table("salas",
 
 cm.create_table("tickets",
                 "id_ticket INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "comprador TEXT(20),"+  #Nombre Cliente
+                "comprador TEXT(20),"+  #DNI Cliente
                 "pelicula TEXT(20),"+   #Nombre Pelicula
                 "cant_butacas INTEGER,"+    #Butacas compradas
                 "fecha TEXT(10),"+  #Formato --> YYYY-MM-DD
                 "horario TEXT(8),"+ #Formato --> HH:MM:SS   
                 "precio REAL,"+
                 "FOREIGN KEY(pelicula) REFERENCES peliculas(nombre),"+
-                "FOREIGN KEY(comprador) REFERENCES personas(nombre)")
+                "FOREIGN KEY(comprador) REFERENCES personas(dni)")
 
 cm.create_table("descuentos",
                 "id_descuento INTEGER PRIMARY KEY AUTOINCREMENT,"+  #ID del día
