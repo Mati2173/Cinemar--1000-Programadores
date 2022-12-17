@@ -39,17 +39,16 @@ class Cuenta(Persona):
         user = bdd.select('cuentas', 'id_cuenta, usuario, password, admin', f'usuario = "{username}"')
         if user != None:
             if user[2] == password:
-                #cuenta = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"') + user
-                #Cuenta.__init__(self, cuenta[0], cuenta[1], cuenta[2], cuenta[3], cuenta[4], cuenta[5], cuenta[7], cuenta[8], cuenta[9])
+                cuenta = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"') + user
+                Cuenta.__init__(self, cuenta[0], cuenta[1], cuenta[2], cuenta[3], cuenta[4], cuenta[5], cuenta[7], cuenta[8], cuenta[9])
                 return 'Inicio de Sesión Exitoso!'
             else:
                 return 'Contraseña incorrecta!'
         else:
             return 'El usuario ingresado no existe!'
     
-    #def cerrar_sesion(self):
-        #Cuenta.__init__(self)
-        #print('\nSesión Cerrada Exitosamente!')
+    def cerrar_sesion(self):
+        Cuenta.__init__(self)
     
     def all_cuentas(self, bdd):
         lista = []
