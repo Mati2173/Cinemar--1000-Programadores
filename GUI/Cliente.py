@@ -16,7 +16,7 @@ class Cliente(Toplevel):
         self.title('Sistema de Autogestión - Cinemar')
         self.iconbitmap('GUI\Assets\Pochoclos.ico')
         self.protocol('WM_DELETE_WINDOW', self.Logout)
-        #self.resizable(0,0)
+        self.resizable(0,0)
 
         self.cuenta_usuario = cuenta_usuario
         self.bdd = base_datos

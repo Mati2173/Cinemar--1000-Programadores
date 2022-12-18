@@ -11,3 +11,10 @@ class Descuento:
     
     def modificar_desc(self,bdd,dia,porcentaje):
         bdd.update('descuentos', 'porcentaje', f'"{porcentaje}"', f"dia = '{dia}'")
+    
+    def mostrar_desc(self, bdd):
+        lista=[]
+        desc = bdd.select_all('descuentos','id_descuento,dia,porcentaje')
+        for i in range(len(desc)):
+            lista.append(desc[i])
+        return lista

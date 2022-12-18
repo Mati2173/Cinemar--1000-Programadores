@@ -7,6 +7,7 @@ from GUI.Frames.Sala import SalaAdm
 from GUI.Frames.Pelicula import PeliculaAdm
 from GUI.Frames.Funciones import FuncionAdm
 from GUI.Frames.Perfil import Perfil
+from GUI.Frames.Descuento import DescuentoAdm
 from GUI.Frames.Inicio import Inicio
 
 class Administrador(Toplevel):
@@ -18,7 +19,7 @@ class Administrador(Toplevel):
         self.title('Sistema de Autogestión - Cinemar')
         self.iconbitmap('GUI\Assets\Pochoclos.ico')
         self.protocol('WM_DELETE_WINDOW', self.Logout)
-        #self.resizable(0,0)
+        self.resizable(0,0)
 
         self.cuenta_usuario = cuenta_usuario
         self.bdd = base_datos
@@ -26,7 +27,7 @@ class Administrador(Toplevel):
         """FRAMES"""
         self.F_principal = tk.Frame(self)
         self.F_inicio = Inicio(self.F_principal, 2)
-        self.F_perfil = Perfil(self.F_principal, self.cuenta_usuario, self.bdd)
+        self.F_descuento = DescuentoAdm(self.F_principal, self.bdd)
         self.F_pelicula = PeliculaAdm(self, self.F_principal, self.bdd)
         self.F_sala = SalaAdm(self.F_principal, self.bdd)
         self.F_funcion = FuncionAdm(self, self.F_principal, self.bdd)
@@ -34,7 +35,7 @@ class Administrador(Toplevel):
 
         """BOTONES PRINCIPALES"""
         self.Inicio_bott = ttk.Button(self.F_principal)
-        self.Perfil_bott = ttk.Button(self.F_principal)
+        self.Descuento_bott = ttk.Button(self.F_principal)
         self.Peliculas_bott = ttk.Button(self.F_principal)
         self.Salas_bott = ttk.Button(self.F_principal)
         self.Funciones_bott = ttk.Button(self.F_principal)
@@ -45,7 +46,7 @@ class Administrador(Toplevel):
         """IMAGENES"""
         self.img_Opciones = tk.PhotoImage(file = "GUI\Assets\OpcionesAdministrador.png")
         self.img_Inicio = tk.PhotoImage(file = "GUI\Assets\Home.png")
-        self.img_Perfil = tk.PhotoImage(file = "GUI\Assets\Customer.png")
+        self.img_Descuento = tk.PhotoImage(file = "GUI\Assets\Descuento.png")
         self.img_Sala = tk.PhotoImage(file = "GUI\Assets\Sala.png")
         self.img_Pelicula = tk.PhotoImage(file = "GUI\Assets\Pelicula.png")
         self.img_Funciones = tk.PhotoImage(file = "GUI\Assets\Funcion.png")
@@ -64,7 +65,7 @@ class Administrador(Toplevel):
     def frames_config(self):
         self.F_principal.config(bg = '#056595')
         self.F_inicio.config(bg = '#056595')
-        self.F_perfil.config(bg = '#056595')
+        self.F_descuento.config(bg = '#056595')
         self.F_pelicula.config(bg = '#056595')
         self.F_sala.config(bg = '#056595')
         self.F_funcion.config(bg = '#056595')
@@ -72,7 +73,7 @@ class Administrador(Toplevel):
 
     def Opciones_config(self):
         self.Inicio_bott.config(image = self.img_Inicio, command = self.MenuInicio)
-        self.Perfil_bott.config(image = self.img_Perfil, command = self.MenuPerfil)
+        self.Descuento_bott.config(image = self.img_Descuento, command = self.MenuPerfil)
         self.Peliculas_bott.config(image = self.img_Pelicula, command = self.MenuPelicula)
         self.Salas_bott.config(image = self.img_Sala, command = self.MenuSala)
         self.Funciones_bott.config(image = self.img_Funciones, command = self.MenuFuncion)
@@ -82,7 +83,7 @@ class Administrador(Toplevel):
     def Opciones_grid(self):
         self.Opciones_img.config(image = self.img_Opciones, border = 0)
         self.Inicio_bott.grid(row = 0, column = 1, ipadx = 13, ipady = 5)
-        self.Perfil_bott.grid(row = 0, column = 2, ipadx = 40, ipady = 5)
+        self.Descuento_bott.grid(row = 0, column = 2, ipadx = 40, ipady = 5)
         self.Peliculas_bott.grid(row = 0, column = 3, ipadx = 40, ipady = 5)
         self.Salas_bott.grid(row = 0, column = 4, ipadx = 40, ipady = 5)
         self.Funciones_bott.grid(row = 0, column = 5, ipadx = 40, ipady = 5)
@@ -96,7 +97,7 @@ class Administrador(Toplevel):
 
     def MenuPerfil(self):
         self.ocultar_frames()
-        self.F_perfil.grid(row = 2, column = 0, columnspan = 8)
+        self.F_descuento.grid(row = 2, column = 0, columnspan = 8)
 
     def MenuPelicula(self):
         self.ocultar_frames()
@@ -116,7 +117,7 @@ class Administrador(Toplevel):
 
     def ocultar_frames(self):
         self.F_inicio.grid_forget()
-        self.F_perfil.grid_forget()
+        self.F_descuento.grid_forget()
         self.F_pelicula.grid_forget()
         self.F_sala.grid_forget()
         self.F_funcion.grid_forget()

@@ -1,49 +1,26 @@
 from SQL import databases as db
 
 class Sala:
-    def __init__ (self,id,cantidaddebutacas,tipo,funciones):
+    def __init__ (self,id=0,cant_butacas=0,tipo=""):
         self.id = id
-        self.cantidaddebutacas = cantidaddebutacas
+        self.cant_butacas = cant_butacas
         self.tipo = tipo
-        self.funciones = funciones
-        
-    @property
-    def id (self):
-        return self.id
-
-    @id.setter
-    def id(self,id):
-        self.id = id
-
-    @property
-    def cantidaddebutacas (self):
-        return self.cantidaddebutacas
-
-    @cantidaddebutacas.setter
-    def cantidaddebutacas(self,cantidaddebutacas):
-        self.cantidaddebutacas = cantidaddebutacas
-
-
-    @property
-    def tipo (self):
-        return self.tipo
-
-    @tipo.setter
-    def tipo(self,tipo):
-        self.tipo = tipo
-        
-    @property
-    def funciones (self):
-        return self.funciones
-
-    @funciones.setter
-    def funciones(self,funciones):
-        self.funciones = funciones
         
     def __str__(self):
-        return f"{self.cantidaddebutacas} {self.tipo} {self.funciones}"
+        return f"{self.id} {self.cant_butacas} {self.tipo}"
     
+    def modificar_sala(self,bdd,cant_butacas=0,id_sala=0):
+        bdd.update('salas', 'cant_butacas', f'{cant_butacas}', f"id_sala='{id_sala}'")
+    
+    def cargar_sala(self,bdd,id,cant_butacas=0,tipo =" "):
+        bdd.insert('salas','id_sala,cant_butacas,tipo',f"{id},{cant_butacas},'{tipo}'")
+
+    def eliminar_sala(self,bdd,id_sala):
+        bdd.delete('salas', f'id_sala = {id_sala}')
         
-    def mostrar_lista(self):
-        return [self.id, self.cantidaddebutacas, self.tipo, self.funciones]
-    
+    def mostrar_salas(self, bdd):
+        lista=[]
+        salas = bdd.select_all('salas','id_sala,cant_butacas,tipo')
+        for i in range(len(salas)):
+            lista.append(salas[i])
+        return lista

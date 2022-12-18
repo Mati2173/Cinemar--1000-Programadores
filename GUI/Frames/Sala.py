@@ -1,11 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+from Clases.Sala import Sala
 
 class SalaAdm(tk.Frame):
     def __init__(self, master = None, base_datos = None):
         tk.Frame.__init__(self, master)
         self.master = master
         self.bdd = base_datos
+        self.sala = Sala()
 
         """WIDGETS"""
         #Titulo
@@ -28,6 +30,9 @@ class SalaAdm(tk.Frame):
 
         self.widgets_config()
         self.widgets_grid()
+        self.input_fill()
+
+
 
     def Tabla_config(self):
         self.Tabla.config(columns = (1,2))
@@ -37,6 +42,17 @@ class SalaAdm(tk.Frame):
         self.Tabla.heading('#1', text = 'Cantidad de Butacas')
         self.Tabla.column('#2', width = 70, anchor = 'center')
         self.Tabla.heading('#2', text = 'Tipo')
+    
+    def input_fill(self):
+        self.Tabla.delete(*self.Tabla.get_children())
+        salas = self.sala.mostrar_salas(self.bdd)
+        id_salas = []
+
+        for sala in salas:
+            self.Tabla.insert('', 'end', text = f'{sala[0]}', values = (sala[1], sala[2]))
+            id_salas.append(sala[0])
+        
+        self.Elim_input.config(values = id_salas)
     
     def widgets_config(self):
         #Titulo
@@ -77,7 +93,27 @@ class SalaAdm(tk.Frame):
         self.Add_bott.grid(row = 7, column = 5)
 
     def Agregar(self):
-        pass
+        id = self.NumSala_input.get()
+        butac = self.Butac_input.get()
+        tipo = self.Tipo_input.get()
+
+        if len(id) > 0 and len(butac) > 0 and len(tipo) > 0:
+            self.sala.cargar_sala(self.bdd, id, butac, tipo)
+            self.input_fill()
+            self.NumSala_input.delete(0, 'end')
+            self.Butac_input.delete(0, 'end')
+            self.Tipo_input.set('')
+            messagebox.showinfo('Aviso', 'Sala agregada correctamente')
+        else:
+            messagebox.showinfo('Aviso', 'Debe rellenar todos los campos!')
 
     def Eliminar(self):
-        pass
+        id = self.Elim_input.get()
+
+        if len(id) > 0:
+            self.sala.eliminar_sala(self.bdd, id)
+            self.input_fill()
+            self.Elim_input.set('')
+            messagebox.showinfo('Aviso', 'Sala eliminada correctamente')
+        else:
+            messagebox.showinfo('Aviso', 'Debe rellenar todos los campos!')
