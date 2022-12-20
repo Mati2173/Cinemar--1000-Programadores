@@ -1,7 +1,7 @@
-from sqlite3 import databases as db
+from SQL import databases as db
 
 class Pelicula():
-    def __init__ (self,id,nombre,duracion,genero,tipo,director,actores,sinopsis):
+    def __init__ (self,id=0,nombre=" ",duracion=0,genero="",tipo="",director="",actores="",sinopsis=""):
         self.id = id
         self.nombre = nombre
         self.duracion = duracion
@@ -11,111 +11,30 @@ class Pelicula():
         self.actores = actores
         self.sinopsis = sinopsis
         
-    @property
-    def id(self):
-        return self.id
-
-    @id.setter
-    def id(self,id):
-        self.id = id
-
-    @property
-    def nombre(self):
-        return self.nombre
-
-    @nombre.setter
-    def nombre(self,nombre):
-        self.nombre = nombre
-
-
-    @property
-    def duracion(self):
-        return self.duracion
-
-    @duracion.setter
-    def duracion(self,duracion):
-        self.duracion = duracion
-        
-    @property
-    def genero(self):
-        return self.genero
-
-    @genero.setter
-    def genero(self,genero):
-        self.genero = genero
-        
-    @property
-    def tipo(self):
-        return self.tipo
-
-    @tipo.setter
-    def tipo(self,tipo):
-        self.tipo = tipo
-        
-    @property
-    def director(self):
-        return self.director
-
-    @director.setter
-    def director(self,director):
-        self.director = director
-        
-    @property
-    def actores(self):
-        return self.actores
-
-    @actores.setter
-    def actores(self,actores):
-        self.actores = actores
-        
-    @property
-    def sinopsis(self):
-        return self.sinopsis
-
-    @sinopsis.setter
-    def sinopsis(self,sinopsis):
-        self.sinopsis = sinopsis
-
     def __str__(self):
         return f"{self.id} {self.nombre} {self.duracion} {self.genero} {self.tipo} {self.director} {self.actores} {self.sinopsis}"
     
-    def agregar_pelicula():
-        print("Ingrese el nombre de la Pelicula: ")
-        nombre = input()
-        print("Ingrese la duracion de la pelicula: ")
-        duracion = input()
-        print("Ingrese el genero de la pelicula: ")
-        genero = input()
-        print("Ingrese el tipo de la pelicula: ")
-        tipo = input()
-        print("Ingrese el director de la pelicula: ")
-        director = input()
-        print("Ingrese los actores de la pelicula: ")
-        actores = input()
-        while actores != 0:
-            print("Si no desea agregar más actores ingrese 0 :")
-            print("Ingrese los actores de la pelicula: ")
-            actores = input()
-        print("Ingrese la sipnosis de la pelicula: ")
-        sinopsis =  input()
-      
-
-    def agregarDbPelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
-        connection = conn
-        with connection.cursor() as cursor:
-             consulta = "INSERT INTO peliculas (nombre, duracion, genero, tipo, director,actores,sinopsis) VALUES (%s, %s, %s, %s, %s, %s,%s);"
-             cursor.execute(consulta, (nombre, duracion, genero, tipo, director,actores,sinopsis))
-             connection.commit()
-             connection.close()
-        print("Pelicula Agregada")
+    def mostrar_peliculas(self, bdd):
+        lista=[]
+        pelicula = bdd.select_all('peliculas','id_pelicula,nombre,duracion,genero,tipo,director,actores,sinopsis')
+        for i in range(len(pelicula)):
+            lista.append(pelicula[i])
+        return lista
+    
+    def mas_detalles(self, bdd, id):
+        return bdd.select('peliculas', 'director,actores,sinopsis', f'id_pelicula = {id}')
+    
+    def mostrar_nombres(self, bdd):
+        lista=[]
+        pelicula = bdd.select_all('peliculas WHERE id_pelicula != 0', 'id_pelicula, nombre, tipo')
+        for i in range(len(pelicula)):
+            lista.append(pelicula[i])
+        return lista
+    
+    def eliminar_pelicula(self,bdd,id_pelicula):
+        bdd.delete('peliculas', f'id_pelicula = {id_pelicula}')
         
-    def eliminarDbpelicula(conn, nombre, duracion, genero, tipo, director,actores,sinopsis):
-        connection = conn
-        with connection.cursor() as cursor:
-             consulta = "DELETE FROM Peliculas WHERE(id)"
-             cursor.execute(consulta, (nombre, duracion, genero, tipo, director,actores,sinopsis))
-             connection.commit()
-             connection.close()
-        print("Pelicula Eliminada")
-        
-        
+    def cargar_pelicula(self,bdd,nombre=" ",duracion=0,genero=" ",tipo=" ",director=" ",actores=" ",sinopsis=" "):
+        bdd.insert('peliculas',
+                    'nombre,duracion,genero,tipo,director,actores,sinopsis',
+                    f"'{nombre}',{duracion},'{genero}','{tipo}','{director}','{actores}','{sinopsis}'")

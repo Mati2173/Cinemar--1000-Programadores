@@ -12,7 +12,7 @@ class FormRegistro(Toplevel):
         self.title('Registro')
         self.iconbitmap('GUI\Assets\Pochoclos.ico')
         self.protocol('WM_DELETE_WINDOW', self.Cancelar)
-        #self.resizable(0,0)
+        self.resizable(0,0)
 
         self.bdd = base_datos
         self.cuenta = Cuenta()
@@ -69,12 +69,6 @@ class FormRegistro(Toplevel):
         self.F_cuenta.config(bg = '#056595')
         self.F_boton.config(bg = '#056595')
     
-    def frames_grid(self):
-        self.F_cab.grid(row = 0, column = 0, columnspan = 2)
-        self.F_persona.grid(row = 1, column = 0, columnspan = 2, pady = 20)
-        self.F_cuenta.grid(row = 2, column = 0, columnspan = 2, pady = 20)
-        self.F_boton.grid(row = 3, column = 0, columnspan = 2)
-
     def widgets_config(self):
         #Titulo - Principal
         self.Cab_principal.config(text = 'Ingresá tus datos y creá\ntu cuenta ', foreground = '#FFFFFF', font = ('Segoe UI Black', 25), background = '#002B40', justify='center')
@@ -106,6 +100,12 @@ class FormRegistro(Toplevel):
         #Botones
         self.Registrarse_bott.config(text = 'Registrarse', command = self.Registrarse)
         self.Cancelar_bott.config(text = 'Cancelar', command = self.Cancelar)
+
+    def frames_grid(self):
+        self.F_cab.grid(row = 0, column = 0, columnspan = 2)
+        self.F_persona.grid(row = 1, column = 0, columnspan = 2, pady = 20)
+        self.F_cuenta.grid(row = 2, column = 0, columnspan = 2, pady = 20)
+        self.F_boton.grid(row = 3, column = 0, columnspan = 2)
 
     def widgets_grid(self):
         #Titulo - Principal
@@ -150,22 +150,11 @@ class FormRegistro(Toplevel):
 
         if len(ap) > 0 and len(nom) > 0 and len(dni) > 0 and len(email) > 0 and len(tel) > 0 and len(us) > 0 and len(cont) > 0:
             mensaje = self.cuenta.registrarse(self.bdd, ap, nom, dni, email, tel, us, cont)
-            messagebox.showinfo('Inicio de Sesión', mensaje)
-
-            if mensaje == 'Cuenta Registrada Exitosamente!':
-                self.input_delete()
-
+            messagebox.showinfo('Aviso', mensaje)
+            if mensaje == 'Cuenta registrada exitosamente!':
+                self.Cancelar()
         else:
-            messagebox.showinfo('Inicio de Sesión', 'Debe rellenar todos los campos!')
-   
-    def input_delete(self):
-        self.Ape_input.delete(0, 'end')
-        self.Nom_input.delete(0, 'end')
-        self.Dni_input.delete(0, 'end')
-        self.Mail_input.delete(0, 'end')
-        self.Tel_input.delete(0, 'end')
-        self.UsName_input.delete(0, 'end')
-        self.PassW_input.delete(0, 'end')
+            messagebox.showerror('Error', 'Debe rellenar todos los campos!')
 
     def Cancelar(self):
         self.destroy()

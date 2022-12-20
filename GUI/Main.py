@@ -83,9 +83,9 @@ class Main(tk.Tk):
 
         if len(usuario) > 0 and len(contra) > 0:
             mensaje = self.cuenta.iniciar_sesion(self.bdd, usuario, contra)
-            messagebox.showinfo('Inicio de Sesión', mensaje)
+            messagebox.showinfo('Inicio de Sesion', mensaje)
             
-            if mensaje == 'Inicio de Sesión Exitoso!':
+            if mensaje == 'Inicio de sesión exitoso!':
                 self.UsName_input.delete(0, 'end')
                 self.PassW_input.delete(0, 'end')
                 self.withdraw()
@@ -97,7 +97,7 @@ class Main(tk.Tk):
 
                 ventana.mainloop()
         else:
-            messagebox.showinfo('Inicio de Sesión', 'Debe rellenar todos los campos!')
+            messagebox.showerror('Error', 'Debe rellenar todos los campos!')
     
     def Registrar(self):
         self.withdraw()

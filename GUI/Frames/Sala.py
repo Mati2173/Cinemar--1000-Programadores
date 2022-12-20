@@ -37,22 +37,11 @@ class SalaAdm(tk.Frame):
     def Tabla_config(self):
         self.Tabla.config(columns = (1,2))
         self.Tabla.column('#0', width = 70, anchor = 'center')
-        self.Tabla.heading('#0', text = 'ID Sala')
+        self.Tabla.heading('#0', text = 'ID Sala', anchor = 'center')
         self.Tabla.column('#1', width = 160, anchor = 'center')
-        self.Tabla.heading('#1', text = 'Cantidad de Butacas')
+        self.Tabla.heading('#1', text = 'Cantidad de Butacas', anchor = 'center')
         self.Tabla.column('#2', width = 70, anchor = 'center')
-        self.Tabla.heading('#2', text = 'Tipo')
-    
-    def input_fill(self):
-        self.Tabla.delete(*self.Tabla.get_children())
-        salas = self.sala.mostrar_salas(self.bdd)
-        id_salas = []
-
-        for sala in salas:
-            self.Tabla.insert('', 'end', text = f'{sala[0]}', values = (sala[1], sala[2]))
-            id_salas.append(sala[0])
-        
-        self.Elim_input.config(values = id_salas)
+        self.Tabla.heading('#2', text = 'Tipo', anchor = 'center')
     
     def widgets_config(self):
         #Titulo
@@ -61,7 +50,7 @@ class SalaAdm(tk.Frame):
         self.Tabla_config()
         #Eliminar
         self.Elim_label.config(text = 'Elimina una sala', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Elim_input.config(width = 5)
+        self.Elim_input.config(width = 5, state = 'readonly')
         self.Elim_bott.config(text = 'Eliminar', command = self.Eliminar)
         #Añadir
         self.Add_label.config(text = 'Agregar una nueva sala', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
@@ -72,6 +61,17 @@ class SalaAdm(tk.Frame):
         self.Tipo_label.config(text = 'Tipo', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
         self.Tipo_input.config(width = 3, state = 'readonly', values = ['2D', '3D'])
         self.Add_bott.config(text = 'Agregar', command = self.Agregar)
+
+    def input_fill(self):
+        self.Tabla.delete(*self.Tabla.get_children())
+        salas = self.sala.mostrar_salas(self.bdd)
+        id_salas = []
+
+        for sala in salas:
+            self.Tabla.insert('', 'end', text = f'{sala[0]}', values = (sala[1], sala[2]))
+            id_salas.append(sala[0])
+        
+        self.Elim_input.config(values = id_salas)
     
     def widgets_grid(self):
         #Titulo
@@ -103,9 +103,9 @@ class SalaAdm(tk.Frame):
             self.NumSala_input.delete(0, 'end')
             self.Butac_input.delete(0, 'end')
             self.Tipo_input.set('')
-            messagebox.showinfo('Aviso', 'Sala agregada correctamente')
+            messagebox.showinfo('Aviso', 'Sala agregada exitosamente!')
         else:
-            messagebox.showinfo('Aviso', 'Debe rellenar todos los campos!')
+            messagebox.showerror('Error', 'Debe rellenar todos los campos!')
 
     def Eliminar(self):
         id = self.Elim_input.get()
@@ -114,6 +114,6 @@ class SalaAdm(tk.Frame):
             self.sala.eliminar_sala(self.bdd, id)
             self.input_fill()
             self.Elim_input.set('')
-            messagebox.showinfo('Aviso', 'Sala eliminada correctamente')
+            messagebox.showinfo('Aviso', 'Sala eliminada exitosamente!')
         else:
-            messagebox.showinfo('Aviso', 'Debe rellenar todos los campos!')
+            messagebox.showerror('Error', 'Debe seleccionar una sala!')

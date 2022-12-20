@@ -40,6 +40,8 @@ class Perfil(tk.Frame):
         self.widgets_config()
         self.widgets_grid()
 
+
+
     def widgets_config(self):
         self.input_insert()
         #Titulo

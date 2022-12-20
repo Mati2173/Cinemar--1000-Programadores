@@ -13,11 +13,20 @@ class Ticket():
     def cargar_ticket(self, bdd):
         bdd.insert('tickets',
                     'comprador, pelicula, cant_butacas, fecha, horario, precio', 
-                    f'{self.dni_comprador}, {self.pelicula}, {self.cant_butacas}, "{self.fecha}", "{self.horario}", {self.precio}')
+                    f'"{self.dni_comprador}", "{self.pelicula}", {self.cant_butacas}, "{self.fecha}", "{self.horario}", {self.precio}')
     
     def all_tickets(self, bdd):
         lista = []
         tickets =  bdd.select_all('tickets', 'id_ticket, comprador, pelicula, cant_butacas, fecha, horario, precio')
+
+        for i in range(len(tickets)):
+            lista.append(tickets[i])
+        
+        return lista
+    
+    def por_comprador(self, bdd, dni):
+        lista = []
+        tickets =  bdd.select_all(f'tickets WHERE comprador = "{dni}"', 'id_ticket, comprador, pelicula, cant_butacas, fecha, horario, precio')
 
         for i in range(len(tickets)):
             lista.append(tickets[i])

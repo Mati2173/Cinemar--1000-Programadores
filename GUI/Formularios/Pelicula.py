@@ -1,6 +1,7 @@
 import tkinter as tk
-from tkinter import ttk, Toplevel
+from tkinter import ttk, Toplevel, messagebox
 from tkinter.scrolledtext import ScrolledText
+from Clases.Pelicula import Pelicula
 from SQL import databases as db
 
 class FormPelicula(Toplevel):
@@ -11,11 +12,11 @@ class FormPelicula(Toplevel):
         self.config(bg = '#056595')
         self.title('Agregar Pelicula')
         self.iconbitmap('GUI\Assets\Pochoclos.ico')
-        #self.protocol('WM_DELETE_WINDOW', self.Cancelar)
-        #self.resizable(0,0)
+        self.protocol('WM_DELETE_WINDOW', self.Cancelar)
+        self.resizable(0,0)
 
         self.bdd = base_datos
-        #self.pelicula = Pelicula()
+        self.pelicula = Pelicula()
 
         """FRAMES"""
         self.F_cab = tk.Frame(self)     #Cabecera
@@ -70,7 +71,7 @@ class FormPelicula(Toplevel):
         self.Nom_label.config(text = 'Nombre', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
         self.Nom_input.config(width = 30)
         #Duracion
-        self.Dur_label.config(text = 'Duracion', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
+        self.Dur_label.config(text = 'Duración', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
         self.Dur_input.config(width = 30)
         #Genero
         self.Gen_label.config(text = 'Genero', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
@@ -125,7 +126,21 @@ class FormPelicula(Toplevel):
         self.Cancelar_bott.grid(row = 0, column = 2, padx = 20, pady = 10, ipadx = 5, ipady = 5)
 
     def Cargar(self):
-        pass
+        nom = self.Nom_input.get()
+        dur = self.Dur_input.get()
+        gen = self.Gen_input.get()
+        tipo = self.Tipo_input.get()
+        dir = self.Direc_input.get()
+        act = self.Actor_input.get('1.0', 'end')
+        sin = self.Sinop_input.get('1.0', 'end')
+
+        if len(nom) > 0 and len(dur) > 0 and len(gen) > 0 and len(tipo) > 0 and len(dir) > 0 and len(act) > 0 and len(sin) > 0:
+            self.pelicula.cargar_pelicula(self.bdd, nom, dur, gen, tipo, dir, act, sin)
+            messagebox.showinfo('Aviso', 'Pelicula agregada exitosamente!')
+            self.master.F_pelicula.input_fill()
+            self.Cancelar()
+        else:
+            messagebox.showerror('Error', 'Debe rellenar todos los campos!')
 
     def Cancelar(self):
         self.destroy()

@@ -37,17 +37,6 @@ class DescuentoAdm(tk.Frame):
         self.Tabla.column('#2', width = 100, anchor = 'center')
         self.Tabla.heading('#2', text = 'Porcentaje (%)')
     
-    def input_fill(self):
-        self.Tabla.delete(*self.Tabla.get_children())
-
-        descuentos = self.descuento.mostrar_desc(self.bdd)
-        dias = []
-        for desc in descuentos:
-            self.Tabla.insert('', 'end', text = f'{desc[0]}', values = (desc[1], desc[2]))
-            dias.append(desc[1])
-        
-        self.Dia_input.config(values = dias)
-    
     def widgets_config(self):
         #Titulo
         self.Cab_principal.config(text = '   Descuentos   ', foreground = '#FFFFFF', font = ('Segoe UI Black', 36), background = '#002B40')
@@ -60,6 +49,17 @@ class DescuentoAdm(tk.Frame):
         self.Porc_label.config(text = 'Porcentaje', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
         self.Porc_input.config(width = 13)
         self.Editar_bott.config(text = 'Editar', command = self.Editar)
+
+    def input_fill(self):
+        self.Tabla.delete(*self.Tabla.get_children())
+
+        descuentos = self.descuento.mostrar_desc(self.bdd)
+        dias = []
+        for desc in descuentos:
+            self.Tabla.insert('', 'end', text = f'{desc[0]}', values = (desc[1], desc[2]))
+            dias.append(desc[1])
+        
+        self.Dia_input.config(values = dias)
     
     def widgets_grid(self):
         #Titulo
@@ -83,6 +83,6 @@ class DescuentoAdm(tk.Frame):
             self.input_fill()
             self.Porc_input.delete(0, 'end')
             self.Dia_input.set('')
-            messagebox.showinfo('Aviso', 'Descuento modificado correctamente')
+            messagebox.showinfo('Aviso', 'Descuento modificado exitosamente!')
         else:
-            messagebox.showinfo('Aviso', 'Debe rellenar todos los campos!')
+            messagebox.showerror('Error', 'Debe rellenar todos los campos!')

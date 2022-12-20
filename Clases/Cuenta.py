@@ -31,9 +31,9 @@ class Cuenta(Persona):
 
         if len(mensaje) == 0:
             self.cargar_cuenta(bdd)
-            return 'Cuenta Registrada Exitosamente!'
+            return 'Cuenta registrada exitosamente!'
         else:
-            return 'Registro Fallido.' + mensaje
+            return 'Registro fallido.' + mensaje
     
     def iniciar_sesion(self, bdd, username, password):
         user = bdd.select('cuentas', 'id_cuenta, usuario, password, admin', f'usuario = "{username}"')
@@ -41,7 +41,7 @@ class Cuenta(Persona):
             if user[2] == password:
                 cuenta = bdd.select('personas', 'id_persona, apellido, nombre, dni, email, telefono', f'id_persona = "{user[0]}"') + user
                 Cuenta.__init__(self, cuenta[0], cuenta[1], cuenta[2], cuenta[3], cuenta[4], cuenta[5], cuenta[7], cuenta[8], cuenta[9])
-                return 'Inicio de Sesión Exitoso!'
+                return 'Inicio de sesión exitoso!'
             else:
                 return 'Contraseña incorrecta!'
         else:
