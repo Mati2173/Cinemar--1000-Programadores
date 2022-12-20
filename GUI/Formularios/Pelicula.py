@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, Toplevel, messagebox
-from tkinter.scrolledtext import ScrolledText
 from Clases.Pelicula import Pelicula
 from SQL import databases as db
 
@@ -43,10 +42,10 @@ class FormPelicula(Toplevel):
         self.Direc_input = ttk.Entry(self.F_datos)
         #Actores
         self.Actor_label = ttk.Label(self.F_datos)
-        self.Actor_input = ScrolledText(self.F_datos)
+        self.Actor_input = tk.Text(self.F_datos)
         #Sinopsis
         self.Sinop_label = ttk.Label(self.F_datos)
-        self.Sinop_input = ScrolledText(self.F_datos)
+        self.Sinop_input = tk.Text(self.F_datos)
         #Botones
         self.Cargar_bott = ttk.Button(self.F_boton)
         self.Cancelar_bott = ttk.Button(self.F_boton)
@@ -84,10 +83,10 @@ class FormPelicula(Toplevel):
         self.Direc_input.config(width = 40)
         #Actores
         self.Actor_label.config(text = 'Actores', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Actor_input.config(width = 80, height = 4)
+        self.Actor_input.config(width = 80, height = 4, wrap = 'word')
         #Sinopsis
         self.Sinop_label.config(text = 'Sinopsis', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Sinop_input.config(width = 80, height = 7)
+        self.Sinop_input.config(width = 80, height = 7, wrap = 'word')
         #Botones
         self.Cargar_bott.config(text = 'Cargar Datos', command = self.Cargar)
         self.Cancelar_bott.config(text = 'Cancelar', command = self.Cancelar)

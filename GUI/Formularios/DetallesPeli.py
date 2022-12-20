@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, Toplevel
-from tkinter.scrolledtext import ScrolledText
 from Clases.Pelicula import Pelicula
 from SQL import databases as db
 
@@ -27,9 +26,9 @@ class MasDetalles(Toplevel):
         self.Direc_label = ttk.Label(self.F_datos)
         self.Direc_input = ttk.Entry(self.F_datos)
         self.Act_label = ttk.Label(self.F_datos)
-        self.Act_input = ScrolledText(self.F_datos)
+        self.Act_input = tk.Text(self.F_datos)
         self.Sinop_label = ttk.Label(self.F_datos)
-        self.Sinop_input = ScrolledText(self.F_datos)
+        self.Sinop_input = tk.Text(self.F_datos)
     
         self.input_fill()
         self.frames_config()
@@ -49,9 +48,9 @@ class MasDetalles(Toplevel):
         self.Direc_label.config(text = 'Director', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
         self.Direc_input.config(width = 40, state = 'readonly')
         self.Act_label.config(text = 'Actores', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Act_input.config(width = 80, height = 4, state = 'disabled')
+        self.Act_input.config(width = 80, height = 4, state = 'disabled', wrap = 'word')
         self.Sinop_label.config(text = 'Sinopsis', foreground = '#FFFFFF', font = ('Segoe UI Black', 18), background = '#056595')
-        self.Sinop_input.config(width = 80, height = 7, state = 'disabled')
+        self.Sinop_input.config(width = 80, height = 7, state = 'disabled', wrap = 'word')
 
     def input_fill(self):
         self.Direc_input.insert(0, self.detalles[0])
