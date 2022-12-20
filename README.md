@@ -1,65 +1,65 @@
 # **Sistema de Gestion - Cinemar**
-A través de la app Cinemark se pueden realizar y ver reservas para ver una película en dicho cine, gestionar a los usuarios que se registren en la aplicación, con la intención de disminuir la saturación de las colas y evitar que en algunas salas terminen vendiendo más entradas que la capacidad de la misma, ya que esto provoca pérdidas de ventas en funciones y de esta manera ayuda a no perder clientes.
+A través de la app Cinemar se pueden realizar y ver reservas para ver una película en dicho cine, gestionar a los usuarios que se registren en la aplicación, con la intención de disminuir la saturación de las colas y evitar que en algunas salas terminen vendiendo más entradas que la capacidad de la misma, ya que esto provoca pérdidas de ventas en funciones y de esta manera ayuda a no perder clientes.
 
 ### Pre-requisitos - se adjunta link de descarga
 
-_*[Python](https://www.python.org) -  Lenguaje de Programación con el que se trabajo.
+* [Python](https://www.python.org) - Lenguaje de Programación utilizado en la escritura de código.
 ```
 https://www.python.org/downloads/
 ```
 
-_*[Visual Studio Code (VSC)](https://code.visualstudio.com) - IDE utilizado para el desarrollo de la aplicación.
+* [Visual Studio Code (VSC)](https://code.visualstudio.com) - IDE utilizado para el desarrollo de la aplicación.
 ```
-https://code.visualstudio.com
+https://code.visualstudio.com/Download
 ```
-_*[SQLite](https://www.sqlite.org) - Sistema de Gestión de base de datos utilizada para almacenar y acceder a los datos solo se descargan las extensiones de SQLite (SQLite Viewer - SQLTools SQlite)  en Visual Studio Code.
+* [SQLite](https://www.sqlite.org) - Libreria utilizada para trabajar con base de datos. Para poder visualizar los datos, se utilizaron las siguientes extensiones en VSC: [SQLite Viewer (alexcvzz)](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) // [SQLite Viewer (Florian Klampfer)](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer)
 
-_*[TKinter](https://docs.python.org/es/3/library/tkinter.html) - Se importó esta librería de Python para realizar la interfaz gráfica.
+* [TKinter](https://docs.python.org/es/3/library/tkinter.html) - Librería de Python importada para realizar la interfaz gráfica.
 
 
 ### Como probarlo 🚀
 
-* Para probarlo deberás hacer un clon de este proyecto en tu pc para ello las instrucciones se encuentran detalladas en la carpeta información del repositorio. 
-* Una vez realizado todos los pasos anteriores para ejecutar el programa lo puedo hacer desde VSC donde dice CineApp.pyw al ejecutarlo se abrirá la ventana del programa.
-* También puedo acceder a él desde la carpeta de tu pc donde guarde el proyecto haciendo doble clic en CineApp.pyw si tengo instalado Python correctamente se abrirá la ventana del programa.
+* Para probarlo, deberás hacer un clon de este proyecto en tu pc, para ello encontrarás las instrucciones detalladas en la carpeta "Informacion" del repositorio. 
+* Una vez realizados los pasos anteriores, desde VSC ejecuta el archivo "Cinemar.py" el cual abrirá la ventana del programa.
+* También puedes acceder a él desde la carpeta de la aplicación haciendo doble clic en el archivo "CineApp.pyw". Si tengo instalado Python correctamente, se abrirá la ventana del programa.
 
 ### Inicio de sesion 📌
 #### Puede iniciar sesión como cliente o como administrador, teniendo en cuenta los usuarios creados previamente:
 
-| **Usuario** | **Contraseña** | **Rol** |
+| **Nombre de Usuario** | **Contraseña** | **Rol** |
 | :---: | :---: | :---: |
-| scaloni | 181222 | admin |
-| messi_10| 181222 | cliente |
+| scaloni | 181222 | Administrador |
+| messi_10 | 181222 | Cliente |
 
 #### En caso de que inicies sesion como cliente 📄 podrás acceder a las siguientes opciones:
 * 1 -> Registrarse.
 * 2 -> Iniciar sesión.
-* 3 -> Ver listado de peliculas
+* 3 -> Ver listado de peliculas.
 * 4 -> Crear una reserva.
 * 5 -> Ver el histórial de mis reservas.
-* Otro caracter -> Cerrar Sesión
+* Otro caracter -> Cerrar Sesión.
 
 #### Consideraciones
 -	No se puede registrar dos veces el mismo usuario.
--	No se puede seleccionar una función si no hay disponibilidad de butacas.
--	Los usuarios que registren 6 o más reservas dentro de un rango de tres meses acceden a un descuento automáticamente de acuerdo al día.
+-	No se podrá realizar una reserva si no hay disponibilidad de butacas.
+-	Los usuarios que registren 6 o más reservas dentro de un rango de tres meses, acceden a un descuento automáticamente de acuerdo al día.
 
 #### En caso de que inicies sesion como administrador 🛠️📦 podrás acceder a las siguientes opciones:
 * 1 -> Iniciar sesión.
 * 2 -> Ver listado de descuentos.
 * 3 -> Modificar un descuento.
 * 4 -> Ver listado de películas
-* 5 -> Cargar Películas
-* 6 -> Eliminar Película
+* 5 -> Cargar Películas.
+* 6 -> Eliminar Película.
 * 7 -> Ver el listado de Salas.
 * 8 -> Agregar una Sala.
 * 9 -> Eliminar una Sala.
-* 10 -> Ver listado de Funciones 
+* 10 -> Ver listado de Funciones. 
 * 11 -> Editar una Función.
 * 12 -> Agregar una Función.
-* 13 -> Eliminar una Función
-* 14 - Ver clientes que realizaron una reserva
-* Otro caracter -> Cerrar Sesión
+* 13 -> Eliminar una Función.
+* 14 - Ver clientes que realizaron una reserva.
+* Otro caracter -> Cerrar Sesión.
 
 
 ## Autores ✒️
